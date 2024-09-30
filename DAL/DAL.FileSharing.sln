@@ -5,7 +5,9 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODELS.FileSharing", "MODELS.FileSharing\MODELS.FileSharing.csproj", "{B2BC4E77-5D2F-4AE8-9668-50F1189EFBDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.FileSharing", "DAL.FileSharing\DAL.FileSharing.csproj", "{1FF5A799-9CE0-45C4-B1F9-753C64C36F1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.FileSharing", "DAL.FileSharing\DAL.FileSharing.csproj", "{1FF5A799-9CE0-45C4-B1F9-753C64C36F1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.TESTS.FileSharing", "DAL.TESTS.FileSharing\DAL.TESTS.FileSharing.csproj", "{F41FEB35-2FE7-485F-BCF9-FADAC936C7CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1FF5A799-9CE0-45C4-B1F9-753C64C36F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FF5A799-9CE0-45C4-B1F9-753C64C36F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FF5A799-9CE0-45C4-B1F9-753C64C36F1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F41FEB35-2FE7-485F-BCF9-FADAC936C7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F41FEB35-2FE7-485F-BCF9-FADAC936C7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F41FEB35-2FE7-485F-BCF9-FADAC936C7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F41FEB35-2FE7-485F-BCF9-FADAC936C7CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
