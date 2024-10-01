@@ -1,6 +1,11 @@
 ﻿global using DAL.FileSharing.EFStructures;
 global using DAL.FileSharing.Exceptions;
+global using DAL.FileSharing.Repos.Base;
+global using DAL.FileSharing.Repos.Interfaces;
 
+global using MODELS.FileSharing.Entities.Base;
+
+global using MODELS.FileSharing.ViewModels;
 global using MODELS.FileSharing.ViewModels.Interfaces;
 
 global using System.Data;
