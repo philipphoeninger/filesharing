@@ -1,4 +1,9 @@
-﻿global using MODELS.FileSharing.ViewModels.Interfaces;
+﻿global using MODELS.FileSharing.Entities.Base;
+global using MODELS.FileSharing.Entities.Owned;
+global using MODELS.FileSharing.Entities.Configuration;
+
+global using MODELS.FileSharing.ViewModels.Interfaces;
+//global using MODELS.FileSharing.ViewModels.Configuration;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

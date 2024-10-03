@@ -3,12 +3,16 @@ global using DAL.FileSharing.Exceptions;
 global using DAL.FileSharing.Repos.Base;
 global using DAL.FileSharing.Repos.Interfaces;
 
+global using MODELS.FileSharing.Entities;
 global using MODELS.FileSharing.Entities.Base;
+global using MODELS.FileSharing.Entities.Configuration;
 
 global using MODELS.FileSharing.ViewModels;
 global using MODELS.FileSharing.ViewModels.Interfaces;
+//global using MODELS.FileSharing.ViewModels.Configuration;
 
 global using System.Data;
+global using System.Linq.Expressions;
 
 global using Microsoft.Data.SqlClient;
 global using Microsoft.EntityFrameworkCore;
