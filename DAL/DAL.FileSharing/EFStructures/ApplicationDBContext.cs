@@ -26,11 +26,13 @@ public partial class ApplicationDBContext : DbContext
     #endregion
 
     #region fields
+    public virtual DbSet<SeriLogEntry> SeriLogEntries { get; set; }
     public virtual DbSet<FileItem> FileItems { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        new SeriLogEntryConfiguration().Configure(modelBuilder.Entity<SeriLogEntry>());
         new FileItemConfiguration().Configure(modelBuilder.Entity<FileItem>());
 
         OnModelCreatingPartial(modelBuilder);
