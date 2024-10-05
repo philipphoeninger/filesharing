@@ -1,4 +1,4 @@
-﻿global using API.FileSharing.Controllers.Base;
+global using API.FileSharing.Controllers.Base;
 //global using API.FileSharing.Filters;
 //global using API.FileSharing.Security;
 
@@ -24,6 +24,9 @@ global using Microsoft.OpenApi.Models;
 global using Microsoft.AspNetCore.Authentication;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc.Authorization;
+
+global using Swashbuckle.AspNetCore.Annotations;
+global using Swashbuckle.AspNetCore.SwaggerGen;
 
 global using System.Reflection;
 global using System.Text.Json;
