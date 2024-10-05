@@ -27,6 +27,10 @@ builder.Services.AddSqlServer<ApplicationDBContext>(connectionString, options =>
 
 builder.Services.AddRepositories();
 
+// Configure logging
+builder.ConfigureSerilog();
+builder.Services.RegisterLoggingInterfaces();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

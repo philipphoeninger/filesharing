@@ -16,6 +16,8 @@ global using MODELS.FileSharing.Entities;
 global using MODELS.FileSharing.Entities.Base;
 
 global using SERVICES.FileSharing.Utilities;
+global using SERVICES.FileSharing.Logging.Interfaces;
+global using SERVICES.FileSharing.Logging.Configuration;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
