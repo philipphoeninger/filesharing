@@ -2,5 +2,15 @@
 
 public static class SampleDataInitializer
 {
-    // TODO
+    #region public
+    public static void InitializeData(ApplicationDBContext dbContext)
+    {
+        // TODO
+    }
+
+    public static void ClearAndReseedDatabase(ApplicationDBContext dbContext)
+    {
+        // TODO
+    }
+    #endregion
 }
