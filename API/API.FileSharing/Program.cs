@@ -31,6 +31,8 @@ if (app.Environment.IsDevelopment())
     {
         using var scope = app.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+        SampleDataInitializer.InitializeData(dbContext);
+        //SampleDataInitializer.ClearAndReseedDatabase(dbContext);
     }
     app.UseSwagger();
     app.UseSwaggerUI();
