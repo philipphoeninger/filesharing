@@ -4,5 +4,7 @@
 [Route("api/[controller]")]
 public class FileItemsController : BaseCrudController<FileItem, FileItemsController>
 {
-    public FileItemsController(IFileItemRepo repo) : base(repo) { }
+    public FileItemsController(IAppLogging<FileItemsController> logger, IFileItemRepo repo) : base(logger, repo)
+    {
+    }
 }

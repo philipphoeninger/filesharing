@@ -1,4 +1,4 @@
-﻿namespace API.FileSharing.Controllers.Base;
+namespace API.FileSharing.Controllers.Base;
 
 [ApiController]
 [Authorize]
@@ -8,10 +8,12 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     where TController : class
 {
     protected readonly IBaseRepo<TEntity> MainRepo;
+    protected readonly IAppLogging<TController> Logger;
 
-    protected BaseCrudController(IBaseRepo<TEntity> repo)
+    protected BaseCrudController(IAppLogging<TController> logger, IBaseRepo<TEntity> repo)
     {
         MainRepo = repo;
+        Logger = logger;
     }
 
     /// <summary>
