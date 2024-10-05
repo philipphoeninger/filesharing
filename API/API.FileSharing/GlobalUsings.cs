@@ -1,3 +1,4 @@
+global using API.FileSharing.ApiVersionSupport;
 global using API.FileSharing.Swagger;
 global using API.FileSharing.Swagger.Models;
 global using API.FileSharing.Controllers.Base;
@@ -19,6 +20,8 @@ global using SERVICES.FileSharing.Utilities;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.ApiExplorer;
+global using Asp.Versioning;
+global using Asp.Versioning.ApiExplorer;
 global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.Extensions.Options;
 global using Microsoft.OpenApi.Any;

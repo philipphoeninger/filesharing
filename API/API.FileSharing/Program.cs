@@ -9,6 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+// add API Version support
+builder.Services.AddFileSharingApiVersionConfiguration(new ApiVersion(0, 1));
+
 // add SQL Server Connection
 var connectionString = builder.Configuration.GetConnectionString("FileSharing");
 builder.Services.AddSqlServer<ApplicationDBContext>(connectionString, options =>
