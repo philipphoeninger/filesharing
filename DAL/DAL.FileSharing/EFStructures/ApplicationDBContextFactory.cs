@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-
 namespace DAL.FileSharing.EFStructures;
+
 public class ApplicationDBContextFactory : IDesignTimeDbContextFactory<ApplicationDBContext>
 {
     public ApplicationDBContext CreateDbContext(string[] args)

@@ -1,6 +1,6 @@
 ﻿namespace DAL.FileSharing.EFStructures;
 
-public partial class ApplicationDBContext : DbContext
+public partial class ApplicationDBContext : IdentityDbContext<User>
 {
     #region ctors
     public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
@@ -32,6 +32,16 @@ public partial class ApplicationDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // configure Identity Framework schema
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<User>().ToTable("Users", "identity");
+        modelBuilder.Entity<IdentityRole>().ToTable("Roles", "identity");
+        modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "identity");
+        modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "identity");
+        modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins", "identity");
+        modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims", "identity");
+        modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserTokens", "identity");
+
         new SeriLogEntryConfiguration().Configure(modelBuilder.Entity<SeriLogEntry>());
         new FileItemConfiguration().Configure(modelBuilder.Entity<FileItem>());
 
