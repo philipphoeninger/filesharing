@@ -31,6 +31,7 @@ global using Microsoft.OpenApi.Models;
 global using Microsoft.AspNetCore.Authentication;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc.Authorization;
+global using Microsoft.AspNetCore.Identity;
 
 global using Swashbuckle.AspNetCore.Annotations;
 global using Swashbuckle.AspNetCore.SwaggerGen;

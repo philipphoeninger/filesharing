@@ -25,6 +25,17 @@ builder.Services.AddSqlServer<ApplicationDBContext>(connectionString, options =>
     options.EnableRetryOnFailure().CommandTimeout(60);
 });
 
+// add auth
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication();
+
+// Add Identity
+builder.Services
+    .AddIdentityCore<User>()
+    .AddEntityFrameworkStores<ApplicationDBContext>()
+    .AddApiEndpoints();
+
+// add repositories
 builder.Services.AddRepositories();
 
 // Configure logging
@@ -59,8 +70,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// enable authorization checks
+app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapIdentityApi<User>();
 app.MapControllers();
 
 app.Run();
