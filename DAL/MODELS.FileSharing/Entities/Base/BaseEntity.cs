@@ -1,4 +1,5 @@
 ﻿namespace MODELS.FileSharing.Entities.Base;
+
 public abstract class BaseEntity
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
