@@ -1,6 +1,0 @@
-@API.FileSharing_HostAddress = http://localhost:5293
-
-GET {{API.FileSharing_HostAddress}}/
-Accept: application/json
-
-###
