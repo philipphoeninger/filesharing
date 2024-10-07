@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CLIENT.Filesharing": {
+    "CLIENT.FileSharing": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "CLIENT.Filesharing:build:production"
+              "buildTarget": "CLIENT.FileSharing:build:production"
             },
             "development": {
-              "buildTarget": "CLIENT.Filesharing:build:development"
+              "buildTarget": "CLIENT.FileSharing:build:development"
             }
           },
           "defaultConfiguration": "development"

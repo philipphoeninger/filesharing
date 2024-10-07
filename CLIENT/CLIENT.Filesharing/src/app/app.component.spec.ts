@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'CLIENT.Filesharing' title`, () => {
+  it(`should have the 'CLIENT.FileSharing' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('CLIENT.Filesharing');
+    expect(app.title).toEqual('CLIENT.FileSharing');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, CLIENT.Filesharing');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, CLIENT.FileSharing');
   });
 });
