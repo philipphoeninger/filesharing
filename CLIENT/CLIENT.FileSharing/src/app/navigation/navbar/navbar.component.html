@@ -1,0 +1,40 @@
+<mat-sidenav-container id="sidenav-container">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    opened
+    class="sidenav"
+    [fixedInViewport]="true"
+    [fixedTopGap]="64"
+  >
+    <!-- [fixedBottomGap]="64" -->
+    <mat-nav-list role="list">
+      <a mat-list-item>
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListIconTitle>Some text</span>
+      </a>
+      <a mat-list-item>
+        <mat-icon matListItemIcon>cloud_upload</mat-icon>
+        <span matListIconTitle>Uploads</span>
+      </a>
+      <a mat-list-item>
+        <mat-icon matListItemIcon>link</mat-icon>
+        <span matListIconTitle>My Links</span>
+      </a>
+      <a mat-list-item>
+        <mat-icon matListItemIcon>share</mat-icon>
+        <span matListIconTitle>Shared with me</span>
+      </a>
+      <a mat-list-item>
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span matListIconTitle>Logout</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- <mat-toolbar class="footer">Footer</mat-toolbar> -->
