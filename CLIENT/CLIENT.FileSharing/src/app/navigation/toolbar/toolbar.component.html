@@ -1,0 +1,63 @@
+<mat-toolbar id="fs-toolbar">
+  <button id="menu-btn" mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onHomeClicked()">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-menu-item (click)="onUploadsClicked()">
+      <mat-icon>cloud_upload</mat-icon>
+      <!--smb_share, cloud_circle, cloud_upload-->
+      <span>Uploads</span>
+    </button>
+    <button mat-menu-item (click)="onMyLinksClicked()">
+      <mat-icon>link</mat-icon>
+      <span>My Links</span>
+    </button>
+    <button mat-menu-item (click)="onSharedWithMeClicked()">
+      <mat-icon>share</mat-icon>
+      <span>Shared with me</span>
+    </button>
+  </mat-menu>
+  <h1 id="app-name">File Sharing</h1>
+  <div class="tools">
+    <form id="toolbar-search-field">
+      <mat-form-field
+        class="ctn-form-field-size-small"
+        subscriptSizing="dynamic"
+        appearance="outline"
+      >
+        <mat-label>Search</mat-label>
+        <input type="text" matInput />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+    <button
+      mat-icon-button
+      id="toolbar-search-icon"
+      class="search-btn"
+      aria-label="Search icon-button"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="profile-btn"
+      aria-label="Profile icon-button"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="settings-btn"
+      aria-label="Settings icon-button"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button class="logout-btn" aria-label="Logout icon-button">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
