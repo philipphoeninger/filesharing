@@ -1,0 +1,15 @@
+#main {
+  fs-navbar {
+    display: none;
+  }
+}
+
+/* -- MEDIA -- */
+
+@media (min-width: 48em) {
+  #main {
+    fs-navbar {
+      display: block;
+    }
+  }
+}
