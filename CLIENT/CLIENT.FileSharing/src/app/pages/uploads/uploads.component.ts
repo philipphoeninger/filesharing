@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MOCK_FILE_TYPE_GROUPS } from '../../file-items/shared/mocks/fileTypeGroups.mock.data';
 import { ITimeSpan } from '../../file-items/shared/time-span.interface';
 import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.data';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-uploads',
@@ -32,6 +33,7 @@ import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.da
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatMenuModule,
   ],
   templateUrl: './uploads.component.html',
   styleUrl: './uploads.component.scss',
@@ -40,14 +42,17 @@ export class UploadsComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<FileItem>;
+  @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
   dataSource = new FileItemsDataSource();
   displayedColumns = ['name', 'fileSize', 'createdAt'];
-  
+
   fileTypeControl = new FormControl('');
   fileTypeGroups = MOCK_FILE_TYPE_GROUPS;
 
   timeSpanControl = new FormControl('');
   timeSpans: ITimeSpan[] = MOCK_TIME_SPANS;
+
+  contextMenuPosition = { x: '0px', y: '0px' };
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -58,5 +63,39 @@ export class UploadsComponent {
   clearFilters() {
     this.fileTypeControl.setValue('');
     this.timeSpanControl.setValue('');
+  }
+
+  onContextMenuAction(event: any, file: FileItem) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.menuData = { file: file };
+    this.contextMenu.menu?.focusFirstItem('mouse');
+    this.contextMenu.openMenu();
+  }
+
+  createLink(file: FileItem) {
+    // TODO
+    alert('Create link for ' + file.name);
+  }
+
+  downloadFile(file: FileItem) {
+    // TODO
+    alert('Download ' + file.name);
+  }
+
+  renameFile(file: FileItem) {
+    // TODO
+    alert('Rename ' + file.name);
+  }
+
+  changeFolderColor(file: FileItem) {
+    // TODO
+    alert('Change color for ' + file.name);
+  }
+
+  deleteFile(file: FileItem) {
+    // TODO
+    alert('Delete ' + file.name);
   }
 }
