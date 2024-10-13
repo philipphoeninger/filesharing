@@ -8,6 +8,11 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { FileItem } from '../../file-items/shared/file-item.model';
 import { FileItemsDataSource } from '../../file-items/shared/mocks/fileItemDataSource';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MOCK_FILE_TYPE_GROUPS } from '../../file-items/shared/mocks/fileTypeGroups.mock.data';
 
 @Component({
   selector: 'app-uploads',
@@ -20,6 +25,11 @@ import { FileItemsDataSource } from '../../file-items/shared/mocks/fileItemDataS
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
   ],
   templateUrl: './uploads.component.html',
   styleUrl: './uploads.component.scss',
@@ -30,10 +40,17 @@ export class UploadsComponent {
   @ViewChild(MatTable) table!: MatTable<FileItem>;
   dataSource = new FileItemsDataSource();
   displayedColumns = ['name', 'fileSize', 'createdAt'];
+  
+  fileTypeControl = new FormControl('');
+  fileTypeGroups = MOCK_FILE_TYPE_GROUPS;
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  clearFilters() {
+    this.fileTypeControl.setValue('');
   }
 }
