@@ -12,3 +12,38 @@
     align-items: center;
   }
 }
+
+.table-container {
+  overflow: auto;
+  max-height: calc(100vh - 244px);
+
+  table {
+    padding-right: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    border-radius: 35px;
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 35px;
+    background: #b2b8c5;
+    min-height: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin-top: 56px;
+    border-radius: 35px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #999ca8;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}

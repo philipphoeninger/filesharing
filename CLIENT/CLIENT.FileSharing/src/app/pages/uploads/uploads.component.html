@@ -41,7 +41,7 @@
     </button>
   </form>
 </div>
-<div>
+<div class="table-container">
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -85,7 +85,7 @@
       (contextmenu)="onContextMenuAction($event, row)"
     ></tr>
   </table>
-
+</div>
   <mat-paginator
     #paginator
     [length]="dataSource.data.length"
