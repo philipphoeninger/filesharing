@@ -13,6 +13,9 @@ export class FileItem {
   createdAt: Date;
 
   @jsonMember
+  lastChanged: Date;
+
+  @jsonMember
   isFolder: boolean;
 
   @jsonMember
@@ -22,12 +25,14 @@ export class FileItem {
     pId: number,
     pName: string,
     pCreatedAt: Date,
+    pLastChanged: Date,
     pIsFolder = false,
     pFileSize?: number,
   ) {
     this.id = pId;
     this.name = pName;
     this.createdAt = pCreatedAt;
+    this.lastChanged = pLastChanged;
     this.isFolder = pIsFolder;
     this.fileSize = pFileSize;
   }

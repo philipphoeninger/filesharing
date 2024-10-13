@@ -44,7 +44,7 @@ export class UploadsComponent {
   @ViewChild(MatTable) table!: MatTable<FileItem>;
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
   dataSource = new FileItemsDataSource();
-  displayedColumns = ['name', 'fileSize', 'createdAt', 'actions'];
+  displayedColumns = ['name', 'fileSize', 'lastChanged', 'actions'];
 
   fileTypeControl = new FormControl('');
   fileTypeGroups = MOCK_FILE_TYPE_GROUPS;
