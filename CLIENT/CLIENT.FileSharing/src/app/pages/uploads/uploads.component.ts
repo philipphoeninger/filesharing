@@ -9,13 +9,15 @@ import { MatTableModule, MatTable } from '@angular/material/table';
 import { FileItem } from '../../file-items/shared/file-item.model';
 import { FileItemsDataSource } from '../../file-items/shared/mocks/fileItemDataSource';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MOCK_FILE_TYPE_GROUPS } from '../../file-items/shared/mocks/fileTypeGroups.mock.data';
 import { ITimeSpan } from '../../file-items/shared/time-span.interface';
 import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.data';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-uploads',
@@ -34,6 +36,7 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
     ReactiveFormsModule,
     MatButtonModule,
     MatMenuModule,
+    MatCheckboxModule,
   ],
   templateUrl: './uploads.component.html',
   styleUrl: './uploads.component.scss',
@@ -44,7 +47,7 @@ export class UploadsComponent {
   @ViewChild(MatTable) table!: MatTable<FileItem>;
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
   dataSource = new FileItemsDataSource();
-  displayedColumns = ['name', 'fileSize', 'lastChanged', 'actions'];
+  displayedColumns = ['select', 'name', 'fileSize', 'lastChanged', 'actions'];
 
   fileTypeControl = new FormControl('');
   fileTypeGroups = MOCK_FILE_TYPE_GROUPS;
@@ -53,6 +56,13 @@ export class UploadsComponent {
   timeSpans: ITimeSpan[] = MOCK_TIME_SPANS;
 
   contextMenuPosition = { x: '0px', y: '0px' };
+
+  initialSelection = [];
+  allowMultiSelect = true;
+  selection = new SelectionModel<FileItem>(
+    this.allowMultiSelect,
+    this.initialSelection,
+  );
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -63,6 +73,20 @@ export class UploadsComponent {
   clearFilters() {
     this.fileTypeControl.setValue('');
     this.timeSpanControl.setValue('');
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected == numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
 
   onContextMenuAction(event: any, file: FileItem) {
