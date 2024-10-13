@@ -20,6 +20,21 @@
         >
       </div>
     </mat-form-field>
+    <!-- Filter by Changed Time -->
+    <mat-form-field style="margin-left: 16px" subscriptSizing="dynamic">
+      <mat-label>Changed</mat-label>
+      <mat-select [formControl]="timeSpanControl">
+        @for (timeSpan of timeSpans; track timeSpan) {
+          <mat-option [value]="timeSpan">{{ timeSpan.label }}</mat-option>
+        }
+      </mat-select>
+      <div matSuffix style="margin-left: 4px; margin-right: 8px">
+        <mat-icon
+          (click)="$event.stopPropagation(); timeSpanControl.setValue('')"
+          >clear</mat-icon
+        >
+      </div>
+    </mat-form-field>
     <button style="margin-left: 16px" mat-flat-button (click)="clearFilters()">
       <mat-icon>clear</mat-icon>
       <span>Clear filters</span>

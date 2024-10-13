@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MOCK_FILE_TYPE_GROUPS } from '../../file-items/shared/mocks/fileTypeGroups.mock.data';
+import { ITimeSpan } from '../../file-items/shared/time-span.interface';
+import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.data';
 
 @Component({
   selector: 'app-uploads',
@@ -44,6 +46,9 @@ export class UploadsComponent {
   fileTypeControl = new FormControl('');
   fileTypeGroups = MOCK_FILE_TYPE_GROUPS;
 
+  timeSpanControl = new FormControl('');
+  timeSpans: ITimeSpan[] = MOCK_TIME_SPANS;
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -52,5 +57,6 @@ export class UploadsComponent {
 
   clearFilters() {
     this.fileTypeControl.setValue('');
+    this.timeSpanControl.setValue('');
   }
 }
