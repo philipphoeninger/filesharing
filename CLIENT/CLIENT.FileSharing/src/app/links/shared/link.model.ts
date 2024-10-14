@@ -20,10 +20,19 @@ export class LinkModel {
   validTo: Date;
 
   @jsonMember
+  lastChanged: Date;
+
+  @jsonMember
+  owner: string;
+
+  @jsonMember
   visits: number;
 
   @jsonMember
   name?: string;
+
+  @jsonMember
+  description?: string;
 
   constructor(
     pId: number,
@@ -31,15 +40,21 @@ export class LinkModel {
     pFileType: EnFileType,
     pCreatedAt: Date,
     pValidTo: Date,
+    pLastChanged: Date,
+    pOwner: string,
     pVisits: number = 0,
     pName?: string,
+    pDescription?: string,
   ) {
     this.id = pId;
     this.url = pUrl;
     this.fileType = pFileType;
     this.createdAt = pCreatedAt;
     this.validTo = pValidTo;
+    this.lastChanged = pLastChanged;
+    this.owner = pOwner;
     this.visits = pVisits;
     this.name = pName;
+    this.description = pDescription;
   }
 }

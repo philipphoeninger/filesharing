@@ -9,6 +9,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 7,
   },
   {
@@ -17,6 +19,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 3,
   },
   {
@@ -26,6 +30,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 21,
   },
   {
@@ -35,6 +41,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 11,
   },
   {
@@ -43,6 +51,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 712,
   },
   {
@@ -51,6 +61,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 55,
   },
   {
@@ -60,6 +72,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 126,
   },
   {
@@ -68,6 +82,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 2,
   },
   {
@@ -77,6 +93,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 0,
   },
   {
@@ -86,6 +104,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 1,
   },
   {
@@ -95,6 +115,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 14,
   },
   {
@@ -104,6 +126,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 81,
   },
   {
@@ -113,6 +137,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 77,
   },
   {
@@ -122,6 +148,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 63,
   },
   {
@@ -131,6 +159,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 486,
   },
   {
@@ -140,6 +170,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 0,
   },
   {
@@ -149,6 +181,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 0,
   },
   {
@@ -158,6 +192,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 19,
   },
   {
@@ -167,6 +203,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 21,
   },
   {
@@ -175,6 +213,8 @@ export const MOCK_LINKS: LinkModel[] = [
     url: 'https://www.google.com',
     createdAt: new Date(),
     validTo: new Date(),
+    lastChanged: new Date(),
+    owner: 'John Doe',
     visits: 0,
   },
 ];
