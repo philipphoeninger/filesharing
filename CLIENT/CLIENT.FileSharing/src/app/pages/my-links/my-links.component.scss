@@ -1,0 +1,65 @@
+.heading {
+  font-size: 1.75em;
+  margin-bottom: 0;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.filter-container {
+  // @include mat.form-field-density(minimum); // TODO: handle with theming
+  .filter-form {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.table-container {
+  overflow: auto;
+  max-height: calc(100vh - 244px);
+
+  table {
+    padding-right: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    border-radius: 35px;
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 35px;
+    background: #b2b8c5;
+    min-height: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin-top: 56px;
+    border-radius: 35px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #999ca8;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+.my-links-table-paginator {
+  margin-bottom: 16px;
+}
+
+.my-links-context-menu {
+  visibility: hidden;
+  position: fixed;
+}
+
+.mat-column-select {
+  overflow: initial;
+  width: 44px;
+}
