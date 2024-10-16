@@ -1,18 +1,18 @@
 import { DataSource } from '@angular/cdk/collections';
 import { FileItem } from '../file-item.model';
-import { MOCK_FILE_ITEMS } from './fileItems.mock.data';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Observable, merge, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { compare } from '../helper/compare.function';
+import { FileItemsApiService } from '../fileItems-api.service';
 
 export class FileItemsDataSource extends DataSource<FileItem> {
-  data: FileItem[] = MOCK_FILE_ITEMS;
+  data: BehaviorSubject<FileItem[]> = new BehaviorSubject<FileItem[]>([]);
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private fileItemsApiService: FileItemsApiService) {
     super();
   }
 
@@ -23,12 +23,17 @@ export class FileItemsDataSource extends DataSource<FileItem> {
   connect(): Observable<FileItem[]> {
     if (this.paginator && this.sort) {
       return merge(
-        observableOf(this.data),
+        this.fileItemsApiService.getFileItems(),
         this.paginator.page,
         this.sort.sortChange,
       ).pipe(
-        map(() => {
-          return this.getPagedData(this.getSortedData([...this.data]));
+        map((fileItems) => {
+          if (fileItems instanceof Array) {
+            this.data.next(fileItems);
+            return this.getPagedData(this.getSortedData([...fileItems]));
+          } else {
+            return this.getPagedData(this.getSortedData([...this.data.value]));
+          }
         }),
       );
     } else {
