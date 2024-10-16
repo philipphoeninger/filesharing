@@ -2,20 +2,20 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { LinkModel } from '../link.model';
-import { MOCK_LINKS } from './links.mock.data';
 import { compare } from '../helper/compare.function';
+import { LinksApiService } from '../links-api.service';
 
 /**
  * Data source for the MyLinks view.
  */
 export class MyLinksDataSource extends DataSource<LinkModel> {
-  data: LinkModel[] = MOCK_LINKS;
+  data: BehaviorSubject<LinkModel[]> = new BehaviorSubject<LinkModel[]>([]);
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private linkItemsApiService: LinksApiService) {
     super();
   }
 
@@ -25,12 +25,16 @@ export class MyLinksDataSource extends DataSource<LinkModel> {
   connect(): Observable<LinkModel[]> {
     if (this.paginator && this.sort) {
       return merge(
-        observableOf(this.data),
+        this.linkItemsApiService.getLinks(),
         this.paginator.page,
         this.sort.sortChange,
       ).pipe(
-        map(() => {
-          return this.getPagedData(this.getSortedData([...this.data]));
+        map((linkItems) => {
+          if (linkItems instanceof Array) {
+            this.data.next(linkItems);
+            return this.getPagedData(this.getSortedData([...linkItems]));
+          }
+          return this.getPagedData(this.getSortedData([...this.data.value]));
         }),
       );
     } else {
