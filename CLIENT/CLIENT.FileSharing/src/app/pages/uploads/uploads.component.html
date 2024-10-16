@@ -69,6 +69,7 @@
         </mat-checkbox>
       </td>
     </ng-container>
+
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th
@@ -123,13 +124,14 @@
 <mat-paginator
   #paginator
   class="upload-table-paginator"
-  [length]="dataSource.data.length"
+  [length]="(dataSource.data | async)?.length"
   [pageIndex]="0"
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]"
   aria-label="Select page"
 >
 </mat-paginator>
+
 <div
   class="upload-context-menu"
   [style.left]="contextMenuPosition.x"

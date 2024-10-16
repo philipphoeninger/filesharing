@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
@@ -18,6 +18,8 @@ import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.da
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FileItemsApiService } from '../../file-items/shared/fileItems-api.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-uploads',
@@ -37,6 +39,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatButtonModule,
     MatMenuModule,
     MatCheckboxModule,
+    AsyncPipe,
   ],
   templateUrl: './uploads.component.html',
   styleUrl: './uploads.component.scss',
@@ -46,7 +49,10 @@ export class UploadsComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<FileItem>;
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
-  dataSource = new FileItemsDataSource();
+
+  dataSource: FileItemsDataSource = new FileItemsDataSource(
+    inject(FileItemsApiService),
+  );
   displayedColumns = ['select', 'name', 'fileSize', 'lastChanged', 'actions'];
 
   fileTypeControl = new FormControl('');
@@ -64,7 +70,10 @@ export class UploadsComponent {
     this.initialSelection,
   );
 
+  constructor(private fileItemApiService: FileItemsApiService) {}
+
   ngAfterViewInit(): void {
+    this.dataSource = new FileItemsDataSource(this.fileItemApiService);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
@@ -78,7 +87,7 @@ export class UploadsComponent {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource.data.value.length;
     return numSelected == numRows;
   }
 
@@ -86,7 +95,13 @@ export class UploadsComponent {
   toggleAllRows() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
+      : this.dataSource.data
+          .pipe(
+            map((fileItems) => {
+              fileItems?.forEach((row) => this.selection.select(row));
+            }),
+          )
+          .subscribe();
   }
 
   onContextMenuAction(event: any, file: FileItem) {
