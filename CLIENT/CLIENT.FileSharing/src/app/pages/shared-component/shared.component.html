@@ -161,7 +161,7 @@
 <mat-paginator
   #paginator
   class="shared-table-paginator"
-  [length]="dataSource.data.length"
+  [length]="(dataSource.data | async)?.length"
   [pageIndex]="0"
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]"

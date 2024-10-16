@@ -1,5 +1,5 @@
 import { EnExtendTimeSpan } from './../../links/shared/extend-time-span.enum';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
@@ -16,6 +16,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EnFileType } from '../../file-items/shared/file-type.enum';
 import { MOCK_TIME_SPANS_FUTURE } from '../../links/shared/mocks/timeSpans.mock.data';
+import { AsyncPipe } from '@angular/common';
+import { LinksApiService } from '../../links/shared/links-api.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'my-links',
@@ -34,6 +37,7 @@ import { MOCK_TIME_SPANS_FUTURE } from '../../links/shared/mocks/timeSpans.mock.
     MatButtonModule,
     MatMenuModule,
     MatCheckboxModule,
+    AsyncPipe,
   ],
 })
 export class MyLinksComponent implements AfterViewInit {
@@ -42,10 +46,12 @@ export class MyLinksComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<LinkModel>;
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
 
+  dataSource: MyLinksDataSource = new MyLinksDataSource(
+    inject(LinksApiService),
+  );
+
   EnFileType = EnFileType;
   EnExtendTimeSpan = EnExtendTimeSpan;
-
-  dataSource = new MyLinksDataSource();
 
   timeSpans: ITimeSpan[] = MOCK_TIME_SPANS_FUTURE;
 
@@ -69,7 +75,10 @@ export class MyLinksComponent implements AfterViewInit {
     this.initialSelection,
   );
 
+  constructor(private linkApiService: LinksApiService) {}
+
   ngAfterViewInit(): void {
+    this.dataSource = new MyLinksDataSource(this.linkApiService);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
@@ -90,14 +99,18 @@ export class MyLinksComponent implements AfterViewInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource.data.value.length;
     return numSelected == numRows;
   }
 
   toggleAllRows() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
+      : this.dataSource.data
+          .pipe(
+            map((links) => links.forEach((row) => this.selection.select(row))),
+          )
+          .subscribe();
   }
 
   extendLink(link: LinkModel, time: EnExtendTimeSpan) {

@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
@@ -21,6 +21,8 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { EnTimeSpan } from '../../file-items/shared/time-span.enum';
 import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.data';
+import { LinksApiService } from '../../links/shared/links-api.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shared',
@@ -42,6 +44,7 @@ import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.da
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    AsyncPipe,
   ],
   templateUrl: './shared.component.html',
   styleUrl: './shared.component.scss',
@@ -52,7 +55,9 @@ export class SharedComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<LinkModel>;
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
 
-  dataSource = new MyLinksDataSource();
+  dataSource: MyLinksDataSource = new MyLinksDataSource(
+    inject(LinksApiService),
+  );
 
   displayedColumns = [
     'select',
@@ -83,7 +88,10 @@ export class SharedComponent implements AfterViewInit {
     this.initialSelection,
   );
 
+  constructor(private linkApiService: LinksApiService) {}
+
   ngAfterViewInit(): void {
+    this.dataSource = new MyLinksDataSource(this.linkApiService);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
@@ -97,14 +105,18 @@ export class SharedComponent implements AfterViewInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource.data.value.length;
     return numSelected == numRows;
   }
 
   toggleAllRows() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
+      : this.dataSource.data
+          .pipe(
+            map((links) => links.forEach((row) => this.selection.select(row))),
+          )
+          .subscribe();
   }
 
   onContextMenuAction(event: any, link: LinkModel) {
