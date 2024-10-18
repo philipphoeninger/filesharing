@@ -24,7 +24,7 @@ public class LinkConfiguration : IEntityTypeConfiguration<Link>
            .OnDelete(DeleteBehavior.Cascade)
            .HasConstraintName("FK_Links_User");
 
-        builder.HasIndex(l => l.url, "IX_Links_Url").IsUnique();
+        builder.HasIndex(l => l.Url, "IX_Links_Url").IsUnique();
 
         // temporal
         builder.ToTable(b => b.IsTemporal(tb =>

@@ -65,14 +65,14 @@ public partial class ApplicationDBContext : IdentityDbContext<User>
         }
         if (e.Entry.Entity is Link l)
         {
-            Console.WriteLine($"Link entry {l.Name ?? l.url} was added from {source}");
+            Console.WriteLine($"Link entry {l.Name ?? l.Url} was added from {source}");
         }
     }
 
     private void ChangeTracker_StateChanged(object sender, EntityStateChangedEventArgs e)
     {
         if (e.Entry.Entity is FileItem f) Log_StateChanged(f.Name, e);
-        if (e.Entry.Entity is Link l) Log_StateChanged(l.Name ?? l.url, e);
+        if (e.Entry.Entity is Link l) Log_StateChanged(l.Name ?? l.Url, e);
     }
 
     private void Log_StateChanged(string name, EntityStateChangedEventArgs e)

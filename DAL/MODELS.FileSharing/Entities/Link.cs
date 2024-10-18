@@ -6,7 +6,7 @@ public partial class Link : BaseEntity
 {
     #region fields
     [Required]
-    public string url { get; set; }
+    public string Url { get; set; }
     
     [Required]
     [DisplayName("File Item")]
