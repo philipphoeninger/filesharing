@@ -5,6 +5,7 @@ public class LinkConfiguration : IEntityTypeConfiguration<Link>
     public void Configure(EntityTypeBuilder<Link> builder)
     {
         // query filters
+        builder.HasQueryFilter(f => !f.FileItemNavigation.IsDeleted);
 
         // properties
         builder.Property(l => l.CreatedAt).HasDefaultValueSql("GetDate()");
@@ -31,7 +32,7 @@ public class LinkConfiguration : IEntityTypeConfiguration<Link>
         {
             tb.HasPeriodEnd("ValidTo");
             tb.HasPeriodStart("ValidFrom");
-            tb.UseHistoryTable("FileItemsAudit");
+            tb.UseHistoryTable("LinksAudit");
         }));
     }
 }
