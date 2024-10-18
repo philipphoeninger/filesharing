@@ -28,6 +28,7 @@ public partial class ApplicationDBContext : IdentityDbContext<User>
     #region fields
     public virtual DbSet<SeriLogEntry> SeriLogEntries { get; set; }
     public virtual DbSet<FileItem> FileItems { get; set; }
+    public virtual DbSet<Link> Links { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,6 +45,7 @@ public partial class ApplicationDBContext : IdentityDbContext<User>
 
         new SeriLogEntryConfiguration().Configure(modelBuilder.Entity<SeriLogEntry>());
         new FileItemConfiguration().Configure(modelBuilder.Entity<FileItem>());
+        new LinkConfiguration().Configure(modelBuilder.Entity<Link>());
 
         OnModelCreatingPartial(modelBuilder);
     }
@@ -61,16 +63,22 @@ public partial class ApplicationDBContext : IdentityDbContext<User>
         {
             Console.WriteLine($"FileItem entry {f.Name} was added from {source}");
         }
+        if (e.Entry.Entity is Link l)
+        {
+            Console.WriteLine($"Link entry {l.Name ?? l.url} was added from {source}");
+        }
     }
 
     private void ChangeTracker_StateChanged(object sender, EntityStateChangedEventArgs e)
     {
-        if (e.Entry.Entity is not FileItem f)
-        {
-            return;
-        }
+        if (e.Entry.Entity is FileItem f) Log_StateChanged(f.Name, e);
+        if (e.Entry.Entity is Link l) Log_StateChanged(l.Name ?? l.url, e);
+    }
+
+    private void Log_StateChanged(string name, EntityStateChangedEventArgs e)
+    {
         var action = string.Empty;
-        Console.WriteLine($"FileItem {f.Name} was {e.OldState} before the state changed to {e.NewState}");
+        Console.WriteLine($"Link {name} was {e.OldState} before the state changed to {e.NewState}");
         switch (e.NewState)
         {
             case EntityState.Unchanged:
