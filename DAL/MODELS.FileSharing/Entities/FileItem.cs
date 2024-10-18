@@ -26,6 +26,9 @@ public partial class FileItem : BaseEntity
     [InverseProperty(nameof(ParentNavigation))]
     public virtual IEnumerable<FileItem> FileItems { get; set; } = new List<FileItem>();
 
+    [InverseProperty(nameof(Link.FileItemNavigation))]
+    public virtual IEnumerable<Link> Links { get; set; } = new List<Link>();
+
     private bool? _isFolder;
     [DisplayName("Is Folder")]
     public bool IsFolder
