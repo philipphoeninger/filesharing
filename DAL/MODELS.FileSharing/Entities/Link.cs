@@ -20,14 +20,14 @@ public partial class Link : BaseEntity
     public DateTime CreatedAt { get; set; }
 
     [Required]
-    public DateTime ValidTo { get; set; }
+    public DateTime ValidUntil { get; set; }
 
     [Required]
     public DateTime LastChanged { get; set; }
 
     [Required]
     [DisplayName("Owner")]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
     [InverseProperty(nameof(User.Links))]
