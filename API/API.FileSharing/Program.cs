@@ -10,6 +10,7 @@ builder.Services.AddSwaggerExplorer(builder.Configuration)
                 .AddAppConfig(builder.Configuration)
                 .AddIdentityHandlersAndStores()
                 .ConfigureIdentityOptions()
+                .AddHttpContextAccessor()
                 .AddIdentityAuth(builder.Configuration)
                 .AddRepositories();
 
