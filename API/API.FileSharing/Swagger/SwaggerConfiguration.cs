@@ -11,24 +11,25 @@ public static class SwaggerConfiguration
         services.Configure<SwaggerApplicationSettings>(config.GetSection(nameof(SwaggerApplicationSettings)));
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
-        services.AddSwaggerGen(c =>
+        services.AddSwaggerGen(options =>
         {
-            c.EnableAnnotations();
-            c.OperationFilter<SwaggerDefaultValues>();
-            c.IncludeXmlComments(xmlPathAndFile);
+            options.EnableAnnotations();
+            options.OperationFilter<SwaggerDefaultValues>();
+            options.IncludeXmlComments(xmlPathAndFile);
             if (!addBasicSecurity)
             {
                 return;
             }
-            c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Name = "Authorization",
                 Type = SecuritySchemeType.Http,
-                Scheme = "basic",
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
                 In = ParameterLocation.Header,
-                Description = "Basic Authorization header using the Bearer scheme."
+                Description = "JWT Authorization header using the Bearer scheme."
             });
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -36,7 +37,7 @@ public static class SwaggerConfiguration
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = "basic"
+                            Id = "Bearer"
                         }
                     },
                     new List<string> {}
