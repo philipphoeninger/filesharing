@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace API.FileSharing.Controllers;
+﻿namespace API.FileSharing.Controllers.Identity;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -46,7 +44,7 @@ public class AccountsController : ControllerBase
         return Results.Ok(
             new
             {
-                Email = userDetails?.Email
+                userDetails?.Email
             });
     }
 }

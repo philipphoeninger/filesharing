@@ -1,4 +1,4 @@
-﻿namespace API.FileSharing.Controllers;
+﻿namespace API.FileSharing.Controllers.Identity;
 
 public static class IdentityUserEndpoints
 {
