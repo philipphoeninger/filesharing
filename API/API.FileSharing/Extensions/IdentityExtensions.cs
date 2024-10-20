@@ -33,8 +33,8 @@ public static class IdentityExtensions
             options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
+                ValidateIssuer = false,
+                ValidateAudience = false,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = config["JWTSettings:Issuer"],
@@ -43,7 +43,13 @@ public static class IdentityExtensions
                 ClockSkew = TimeSpan.FromMinutes(2)
             };
         });
-        services.AddAuthorization();
+        services.AddAuthorization(options =>
+        {
+            options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                                            .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                                            .RequireAuthenticatedUser()
+                                            .Build();
+        });
         return services;
     }
 

@@ -8,6 +8,7 @@ public static class IdentityUserEndpoints
         return app;
     }
 
+    [AllowAnonymous]
     private static async Task<IResult> SignInAsync(
         UserManager<User> userManager,
         [FromBody] LoginRequest loginRequest,

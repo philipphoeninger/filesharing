@@ -1,7 +1,6 @@
 ﻿namespace API.FileSharing.Controllers.Base;
 
 [ApiController]
-[Authorize]
 [Route("api/[controller]")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public abstract class BaseCrudController<TEntity, TController> : ControllerBase
