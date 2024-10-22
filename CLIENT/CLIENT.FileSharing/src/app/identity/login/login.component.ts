@@ -6,6 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { IdentityApiService } from '../shared/identity-api.service';
+import { LoginModel } from '../shared/login.model';
+import { finalize, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fs-login',
@@ -38,12 +42,31 @@ export class LoginComponent implements OnInit {
   protected password?: string;
   public keepSignedIn: boolean = false;
 
-  constructor() {}
+  constructor(
+    private identityApiService: IdentityApiService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {}
 
   onSubmit(form: NgForm, event: Event) {
     event.preventDefault();
-    console.log('Form submitted', form.value);
+    let loginCommand = new LoginModel(this.username!, this.password!);
+
+    // TODO: start spinner
+    this.identityApiService
+      .login(loginCommand)
+      .pipe(
+        map((response: any) => {
+          debugger;
+          // TODO: check if login succeeded (check status code)
+          localStorage.setItem('fileshare-token', response.token);
+          this.router.navigateByUrl('/home');
+        }),
+        finalize(() => {
+          // TODO: stop spinner
+        }),
+      )
+      .subscribe();
   }
 }
