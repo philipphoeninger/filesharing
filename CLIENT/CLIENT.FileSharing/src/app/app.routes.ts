@@ -5,12 +5,17 @@ import { SharedComponent } from './pages/shared-component/shared.component';
 import { UploadsComponent } from './pages/uploads/uploads.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { LoginComponent } from './identity/login/login.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: 'auth',
+  },
+  {
+    path: 'auth',
+    component: LoginComponent,
   },
   {
     path: 'home',
