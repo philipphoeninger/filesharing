@@ -11,7 +11,7 @@
       <input
         matInput
         type="email"
-        name="username"
+        name="email"
         [formControl]="emailFormControl"
         required
         #emailInput
@@ -27,6 +27,22 @@
       }
       @if (emailFormControl.hasError("required")) {
         <mat-error>Email is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        type="string"
+        name="username"
+        [(ngModel)]="username"
+        required
+        #usernameInput="ngModel"
+        minlength="3"
+        maxlength="50"
+      />
+      @if (usernameInput.invalid && usernameInput.touched) {
+          <mat-error>Username is <strong>required</strong></mat-error>
       }
     </mat-form-field>
     <mat-form-field id="password-field">
@@ -57,7 +73,7 @@
         minlength="6"
         maxlength="50"
       />
-      @if (passwordInput.invalid && passwordInput.touched) {
+      @if (confirmPasswordInput.invalid && confirmPasswordInput.touched) {
         <mat-error>Confirm password is required.</mat-error>
       }
     </mat-form-field>

@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
   ];
   public selectedLanguage = 'en';
 
-  protected email?: string;
+  protected username?: string;
   protected password?: string;
   protected confirmPassword?: string;
   public keepSignedIn: boolean = false;
