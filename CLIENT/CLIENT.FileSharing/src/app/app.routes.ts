@@ -6,6 +6,7 @@ import { UploadsComponent } from './pages/uploads/uploads.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { LoginComponent } from './identity/login/login.component';
+import { RegisterComponent } from './identity/register/register.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,10 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
   {
     path: 'home',

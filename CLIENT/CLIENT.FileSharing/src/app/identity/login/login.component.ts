@@ -49,6 +49,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
+  onGotoRegister() {
+    this.router.navigateByUrl('/register');
+  }
+
   onSubmit(form: NgForm, event: Event) {
     event.preventDefault();
     let loginCommand = new LoginModel(this.username!, this.password!);
