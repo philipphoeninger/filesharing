@@ -5,6 +5,7 @@ public static class IdentityUserEndpoints
     public static IEndpointRouteBuilder MapIdentityUserEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("/signIn", SignInAsync);
+        app.MapPost("/signUp", SignUpAsync);
         return app;
     }
 
