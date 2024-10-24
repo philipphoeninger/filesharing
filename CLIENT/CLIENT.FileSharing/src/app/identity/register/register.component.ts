@@ -15,6 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { IdentityApiService } from '../shared/identity-api.service';
+import { finalize, map } from 'rxjs/operators';
+import { RegisterModel } from '../shared/register.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -70,7 +73,10 @@ export class RegisterComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private identityApiService: IdentityApiService,
+  ) {}
 
   ngOnInit() {}
 
@@ -80,5 +86,24 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(form: NgForm, event: Event) {
     event.preventDefault();
+
+    let registerCommand = new RegisterModel(
+      this.emailFormControl.value!,
+      this.username!,
+      this.password!,
+    );
+
+    // TODO: start spinner
+    this.identityApiService
+      .register(registerCommand)
+      .pipe(
+        map((response: any) => {
+          console.log(response);
+        }),
+        finalize(() => {
+          // TODO: stop spinner
+        }),
+      )
+      .subscribe();
   }
 }
