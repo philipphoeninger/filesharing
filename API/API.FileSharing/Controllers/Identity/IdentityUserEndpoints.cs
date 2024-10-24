@@ -37,4 +37,19 @@ public static class IdentityUserEndpoints
         }
         else return Results.BadRequest(new { message = "Username or password is incorrect." });
     }
+
+    [AllowAnonymous]
+    private static async Task<IResult> SignUpAsync(
+        UserManager<User> userManager,
+        [FromBody] RegistrationRequest registerRequest)
+    {
+        User user = new User()
+        {
+            Email = registerRequest.Email,
+            UserName = registerRequest.UserName
+        };
+        IdentityResult result = await userManager.CreateAsync(user, registerRequest.Password);
+
+        return result.Succeeded ? Results.Ok(result) : Results.BadRequest(result);
+    }
 }

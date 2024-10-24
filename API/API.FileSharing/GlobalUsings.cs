@@ -4,6 +4,7 @@ global using API.FileSharing.Swagger.Models;
 global using API.FileSharing.Controllers;
 global using API.FileSharing.Controllers.Base;
 global using API.FileSharing.Controllers.Identity;
+global using API.FileSharing.Controllers.Models;
 global using API.FileSharing.Extensions;
 //global using API.FileSharing.Filters;
 //global using API.FileSharing.Security;
