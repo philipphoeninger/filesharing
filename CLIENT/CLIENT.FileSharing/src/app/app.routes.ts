@@ -13,15 +13,17 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth',
+    redirectTo: 'home',
   },
   {
     path: 'auth',
     component: LoginComponent,
+    outlet: 'login',
   },
   {
     path: 'register',
     component: RegisterComponent,
+    outlet: 'login',
   },
   {
     path: 'home',

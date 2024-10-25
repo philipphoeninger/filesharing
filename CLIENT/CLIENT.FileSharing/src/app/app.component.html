@@ -177,9 +177,15 @@
   }
 </style>
 
-<main id="main">
-  <fs-toolbar></fs-toolbar>
-  <fs-navbar></fs-navbar>
-</main>
+@if (loggedIn) {
+  <main id="main">
+    <fs-toolbar></fs-toolbar>
+    <fs-navbar></fs-navbar>
+  </main>
+}
 
-<router-outlet />
+<router-outlet
+  (activate)="loggedIn = false"
+  (deactivate)="loggedIn = true"
+  name="login"
+/>
