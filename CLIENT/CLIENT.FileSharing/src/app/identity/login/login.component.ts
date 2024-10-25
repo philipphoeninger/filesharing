@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { IdentityApiService } from '../shared/identity-api.service';
+import { AuthService } from '../shared/auth.service';
 import { LoginModel } from '../shared/login.model';
 import { finalize, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   public keepSignedIn: boolean = false;
 
   constructor(
-    private identityApiService: IdentityApiService,
+    private authService: AuthService,
     private router: Router,
   ) {}
 
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     let loginCommand = new LoginModel(this.username!, this.password!);
 
     // TODO: start spinner
-    this.identityApiService
+    this.authService
       .login(loginCommand)
       .pipe(
         map((response: any) => {

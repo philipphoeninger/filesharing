@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { IdentityApiService } from '../shared/identity-api.service';
+import { AuthService } from '../shared/auth.service';
 import { finalize, map } from 'rxjs/operators';
 import { RegisterModel } from '../shared/register.model';
 
@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private identityApiService: IdentityApiService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {}
@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit {
     );
 
     // TODO: start spinner
-    this.identityApiService
+    this.authService
       .register(registerCommand)
       .pipe(
         map((response: any) => {
