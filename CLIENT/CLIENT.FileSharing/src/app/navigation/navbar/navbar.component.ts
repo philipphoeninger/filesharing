@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../identity/shared/auth.service';
 
 export type MenuItem = {
   icon: string;
@@ -58,12 +59,8 @@ export class NavbarComponent implements OnInit {
       label: 'Shared with me',
       route: 'sharedWithMe',
     },
-    {
-      icon: 'logout',
-      label: 'Logout',
-    },
   ]);
-  constructor() {}
+  constructor(protected authService: AuthService) {}
 
   ngOnInit() {}
 }

@@ -75,14 +75,10 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    protected authService: AuthService,
   ) {}
 
   ngOnInit() {}
-
-  onGotoLogin() {
-    this.router.navigateByUrl('/auth');
-  }
 
   onSubmit(form: NgForm, event: Event) {
     event.preventDefault();

@@ -58,7 +58,12 @@
     >
       <mat-icon>settings</mat-icon>
     </button>
-    <button mat-icon-button class="logout-btn" aria-label="Logout icon-button">
+    <button
+      mat-icon-button
+      class="logout-btn"
+      aria-label="Logout icon-button"
+      (click)="authService.logout()"
+    >
       <mat-icon>logout</mat-icon>
     </button>
   </div>

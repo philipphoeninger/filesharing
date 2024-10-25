@@ -21,6 +21,10 @@
           <span matListIconTitle>{{ menuItem.label }}</span>
         </a>
       }
+      <a mat-list-item (click)="authService.logout()">
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span matListIconTitle>Logout</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 

@@ -43,15 +43,11 @@ export class LoginComponent implements OnInit {
   public keepSignedIn: boolean = false;
 
   constructor(
-    private authService: AuthService,
+    protected authService: AuthService,
     private router: Router,
   ) {}
 
   ngOnInit() {}
-
-  onGotoRegister() {
-    this.router.navigateByUrl('/register');
-  }
 
   onSubmit(form: NgForm, event: Event) {
     event.preventDefault();

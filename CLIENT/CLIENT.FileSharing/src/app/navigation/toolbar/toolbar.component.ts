@@ -5,7 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from './../../identity/shared/auth.service';
 
 @Component({
   selector: 'fs-toolbar',
@@ -23,7 +24,10 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-  constructor() {}
+  constructor(
+    protected authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {}
 

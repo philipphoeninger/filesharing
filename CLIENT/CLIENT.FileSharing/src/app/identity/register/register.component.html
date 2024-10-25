@@ -42,7 +42,7 @@
         maxlength="50"
       />
       @if (usernameInput.invalid && usernameInput.touched) {
-          <mat-error>Username is <strong>required</strong></mat-error>
+        <mat-error>Username is <strong>required</strong></mat-error>
       }
     </mat-form-field>
     <mat-form-field id="password-field">
@@ -114,5 +114,7 @@
 </div>
 <div id="register-section">
   <span>Already have an account?</span>
-  <button mat-button color="primary" (click)="onGotoLogin()">Login here</button>
+  <button mat-button color="primary" (click)="authService.showLogin()">
+    Login here
+  </button>
 </div>
