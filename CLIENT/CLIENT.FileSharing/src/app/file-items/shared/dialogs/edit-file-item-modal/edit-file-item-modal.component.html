@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{ name() ? "Edit Folder" : "Create Folder" }}</h2>
+<mat-dialog-content class="dialog-content">
+  @if (action() !== EnFileAction.ChangeColor) {
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="name" />
+      @if (action() !== EnFileAction.Rename) {
+        <mat-icon matSuffix (click)="$event.stopPropagation(); testIt()"
+          >palette</mat-icon
+        >
+      }
+    </mat-form-field>
+  }
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="[name(), color()]" cdkFocusInitial>
+    Ok
+  </button>
+</mat-dialog-actions>
