@@ -1,8 +1,23 @@
 @use "@angular/material" as mat;
 
-.heading {
-  font-size: 1.75em;
-  margin-bottom: 0;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .heading {
+    font-size: 1.75em;
+    margin-bottom: 0;
+  }
+
+  .action-container {
+    display: flex;
+    gap: 16px;
+  }
+
+  .action-container:last-child {
+    margin-right: 8px;
+  }
 }
 
 .filter-container {

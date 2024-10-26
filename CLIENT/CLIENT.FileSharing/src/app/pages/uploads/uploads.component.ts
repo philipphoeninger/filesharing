@@ -20,6 +20,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FileItemsApiService } from '../../file-items/shared/fileItems-api.service';
 import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { EditFileItemModalComponent } from '../../file-items/shared/dialogs/edit-file-item-modal/edit-file-item-modal.component';
+import { EnFileAction } from '../../file-items/shared/file-action-type.enum';
 
 @Component({
   selector: 'app-uploads',
@@ -63,6 +66,8 @@ export class UploadsComponent {
 
   contextMenuPosition = { x: '0px', y: '0px' };
 
+  EnFileAction = EnFileAction;
+
   initialSelection = [];
   allowMultiSelect = true;
   selection = new SelectionModel<FileItem>(
@@ -70,7 +75,10 @@ export class UploadsComponent {
     this.initialSelection,
   );
 
-  constructor(private fileItemApiService: FileItemsApiService) {}
+  constructor(
+    private fileItemApiService: FileItemsApiService,
+    private dialog: MatDialog,
+  ) {}
 
   ngAfterViewInit(): void {
     this.dataSource = new FileItemsDataSource(this.fileItemApiService);
@@ -113,6 +121,21 @@ export class UploadsComponent {
     this.contextMenu.openMenu();
   }
 
+  editFileItem(action: EnFileAction, fileItem?: FileItem) {
+    const dialogRef = this.dialog.open(EditFileItemModalComponent, {
+      data: fileItem ? { name: fileItem.name, color: '', action } : { action },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+      console.log(result);
+    });
+  }
+
+  uploadFile() {}
+
+  uploadFolder() {}
+
   createLink(file: FileItem) {
     // TODO
     alert('Create link for ' + file.name);
@@ -126,11 +149,6 @@ export class UploadsComponent {
   renameFile(file: FileItem) {
     // TODO
     alert('Rename ' + file.name);
-  }
-
-  changeFolderColor(file: FileItem) {
-    // TODO
-    alert('Change color for ' + file.name);
   }
 
   deleteFile(file: FileItem) {

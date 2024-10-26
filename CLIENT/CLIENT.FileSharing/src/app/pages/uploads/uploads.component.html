@@ -1,4 +1,16 @@
-<h2 class="heading">My Uploads</h2>
+<div class="header">
+  <h2 class="heading">My Uploads</h2>
+  <div class="action-container">
+    <button
+      mat-mini-fab
+      class="action-item"
+      [matMenuTriggerFor]="addMenu"
+      #addMenuTrigger="matMenuTrigger"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
 <div class="filter-container">
   <form class="filter-form">
     <!-- Filter by File Type -->
@@ -142,12 +154,27 @@
   <ng-template matMenuContent let-file="file">
     <button mat-menu-item (click)="createLink(file)">+ Create Link</button>
     <button mat-menu-item (click)="downloadFile(file)">Download</button>
-    <button mat-menu-item (click)="renameFile(file)">Rename</button>
+    <button mat-menu-item (click)="editFileItem(EnFileAction.Rename, file)">
+      Rename
+    </button>
     @if (file.isFolder) {
-      <button mat-menu-item (click)="changeFolderColor(file)">
+      <button
+        mat-menu-item
+        (click)="editFileItem(EnFileAction.ChangeColor, file)"
+      >
         Change color
       </button>
     }
     <button mat-menu-item (click)="deleteFile(file)">Delete</button>
+  </ng-template>
+</mat-menu>
+
+<mat-menu #addMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item (click)="editFileItem(EnFileAction.Create)">
+      New Folder
+    </button>
+    <button mat-menu-item (click)="uploadFile()">Upload File(s)</button>
+    <button mat-menu-item (click)="uploadFolder()">Upload Folder(s)</button>
   </ng-template>
 </mat-menu>
