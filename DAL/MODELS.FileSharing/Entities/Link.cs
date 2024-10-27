@@ -7,7 +7,7 @@ public partial class Link : BaseEntity
     #region fields
     [Required]
     public string Url { get; set; }
-    
+
     [Required]
     [DisplayName("File Item")]
     public int FileItemId { get; set; }
@@ -45,9 +45,15 @@ public partial class Link : BaseEntity
     #endregion
 
     #region ctors
-    public Link()
-    { 
-        // TODO
+    public Link() { }
+
+    public Link(string pUrl, FileItem pFileItem, User pUser)
+    {
+        Url = pUrl;
+        FileItemId = pFileItem.Id;
+        FileItemNavigation = pFileItem;
+        UserId = pUser.Id;
+        UserNavigation = pUser;
     }
     #endregion
 
