@@ -19,6 +19,7 @@ public class FileItemConfiguration : IEntityTypeConfiguration<FileItem>
         builder.HasOne(f => f.ParentNavigation)
             .WithMany(f => f.FileItems)
             .HasForeignKey(f => f.ParentId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.ClientNoAction)
             .HasConstraintName("FK_FileItems_Parents");
         // TODO: parentId item isFolder=true constraint

@@ -16,12 +16,14 @@ public class LinkConfiguration : IEntityTypeConfiguration<Link>
         builder.HasOne(l => l.FileItemNavigation)
             .WithMany(f => f.Links)
             .HasForeignKey(l => l.FileItemId)
+            .IsRequired()
             .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_Links_FileItem");
 
         builder.HasOne(l => l.UserNavigation)
            .WithMany(u => u.Links)
            .HasForeignKey(l => l.UserId)
+           .IsRequired()
            .OnDelete(DeleteBehavior.Cascade)
            .HasConstraintName("FK_Links_User");
 
