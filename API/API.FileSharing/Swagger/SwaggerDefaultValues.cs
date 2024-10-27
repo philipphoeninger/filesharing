@@ -29,7 +29,11 @@ public class SwaggerDefaultValues : IOperationFilter
             {
                 if (description.DefaultValue != DBNull.Value)
                 {
-                    var json = JsonSerializer.Serialize(description.DefaultValue, description.ModelMetadata.ModelType);
+                    var options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve
+                    };
+                    var json = JsonSerializer.Serialize(description.DefaultValue, description.ModelMetadata.ModelType, options);
                     parameter.Schema.Default = OpenApiAnyFactory.CreateFromJson(json);
                 }
             }

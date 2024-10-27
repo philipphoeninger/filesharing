@@ -3,7 +3,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+                .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 builder.Services.AddSwaggerExplorer(builder.Configuration)
                 .AddFileSharingApiVersionConfiguration(new ApiVersion(0, 1))
                 .AddSqlServerConnection(builder.Configuration)
