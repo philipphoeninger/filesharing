@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/collections';
-import { FileItem } from '../file-item.model';
+import { FileItem } from '../models/file-item.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Observable, merge, BehaviorSubject } from 'rxjs';
@@ -8,11 +8,20 @@ import { compare } from '../helper/compare.function';
 import { FileItemsApiService } from '../fileItems-api.service';
 
 export class FileItemsDataSource extends DataSource<FileItem> {
-  data: BehaviorSubject<FileItem[]> = new BehaviorSubject<FileItem[]>([]);
-  paginator: MatPaginator | undefined;
-  sort: MatSort | undefined;
+  dataStream: BehaviorSubject<FileItem[]> = new BehaviorSubject<FileItem[]>([]);
 
-  constructor(private fileItemsApiService: FileItemsApiService) {
+  set data(d: FileItem[]) {
+    this.dataStream.next(d);
+  }
+  get data(): FileItem[] {
+    return this.dataStream.value;
+  }
+
+  constructor(
+    private paginator: MatPaginator,
+    private sort: MatSort,
+    private fileItemsApiService: FileItemsApiService,
+  ) {
     super();
   }
 
@@ -21,29 +30,36 @@ export class FileItemsDataSource extends DataSource<FileItem> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<FileItem[]> {
-    if (this.paginator && this.sort) {
-      return merge(
-        this.fileItemsApiService.getFileItems(),
-        this.paginator.page,
-        this.sort.sortChange,
-      ).pipe(
-        map((fileItems) => {
-          if (fileItems instanceof Array) {
-            this.data.next(fileItems);
-            return this.getPagedData(this.getSortedData([...fileItems]));
-          } else {
-            return this.getPagedData(this.getSortedData([...this.data.value]));
-          }
-        }),
-      );
-    } else {
-      throw Error(
-        'Please set the paginator and sort on the data source before connecting.',
-      );
-    }
+    const dataMutations = [
+      this.dataStream,
+      this.paginator.page,
+      this.sort.sortChange,
+    ];
+
+    this.paginator.length = this.data.length;
+
+    return merge(...dataMutations).pipe(
+      map(() => {
+        return this.getPagedData(this.getSortedData([...this.data]));
+      }),
+    );
   }
 
   disconnect(): void {}
+
+  public getFileItems(fileItem?: FileItem): Observable<FileItem[]> {
+    return this.fileItemsApiService.getFileItems(fileItem).pipe(
+      map((result) => {
+        if (result instanceof Array) {
+          this.dataStream.next(result);
+          return this.getPagedData(this.getSortedData([...result]));
+        } else {
+          this.dataStream.next([result]);
+          return [result];
+        }
+      }),
+    );
+  }
 
   private getPagedData(data: FileItem[]): FileItem[] {
     if (this.paginator) {

@@ -1,4 +1,4 @@
-import { FileItem } from '../file-item.model';
+import { FileItem } from '../models/file-item.model';
 
 export let MOCK_FILE_ITEMS: FileItem[] = [
   new FileItem(

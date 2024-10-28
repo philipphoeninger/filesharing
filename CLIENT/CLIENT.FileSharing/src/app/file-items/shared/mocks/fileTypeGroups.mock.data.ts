@@ -1,5 +1,5 @@
-import { IFileTypeGroup } from '../file-type-group.interface';
-import { EnFileType } from '../file-type.enum';
+import { IFileTypeGroup } from '../models/file-type-group.interface';
+import { EnFileType } from '../models/file-type.enum';
 
 export let MOCK_FILE_TYPE_GROUPS: IFileTypeGroup[] = [
   {

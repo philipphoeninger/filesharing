@@ -1,5 +1,5 @@
-import { EnTimeSpan } from '../time-span.enum';
-import { ITimeSpan } from '../time-span.interface';
+import { EnTimeSpan } from '../models/time-span.enum';
+import { ITimeSpan } from '../models/time-span.interface';
 
 export let MOCK_TIME_SPANS: ITimeSpan[] = [
   { value: EnTimeSpan.Today, label: 'Today' },
