@@ -1,4 +1,4 @@
-import { EnTimeSpanFuture } from '../../links/shared/time-span.enum';
+import { EnTimeSpanFuture } from '../../../links/shared/time-span.enum';
 import { EnTimeSpan } from './time-span.enum';
 
 export interface ITimeSpan {
