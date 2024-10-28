@@ -129,6 +129,7 @@
       mat-row
       *matRowDef="let row; columns: displayedColumns"
       (contextmenu)="onContextMenuAction($event, row)"
+      (click)="onGetFileItem(row)"
     ></tr>
     <!-- TODO: matNoDataRow -->
   </table>
@@ -136,7 +137,7 @@
 <mat-paginator
   #paginator
   class="upload-table-paginator"
-  [length]="(dataSource.data | async)?.length"
+  [length]="dataSource.data.length"
   [pageIndex]="0"
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]"

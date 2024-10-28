@@ -54,6 +54,8 @@ export class UploadsComponent {
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
 
   dataSource: FileItemsDataSource = new FileItemsDataSource(
+    this.paginator,
+    this.sort,
     inject(FileItemsApiService),
   );
   displayedColumns = ['select', 'name', 'fileSize', 'lastChanged', 'actions'];
@@ -81,10 +83,13 @@ export class UploadsComponent {
   ) {}
 
   ngAfterViewInit(): void {
-    this.dataSource = new FileItemsDataSource(this.fileItemApiService);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.dataSource = new FileItemsDataSource(
+      this.paginator,
+      this.sort,
+      this.fileItemApiService,
+    );
     this.table.dataSource = this.dataSource;
+    this.dataSource.getFileItems().subscribe();
   }
 
   clearFilters() {
@@ -95,7 +100,7 @@ export class UploadsComponent {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.value.length;
+    const numRows = this.dataSource.data.length;
     return numSelected == numRows;
   }
 
@@ -103,13 +108,7 @@ export class UploadsComponent {
   toggleAllRows() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.data
-          .pipe(
-            map((fileItems) => {
-              fileItems?.forEach((row) => this.selection.select(row));
-            }),
-          )
-          .subscribe();
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
 
   onContextMenuAction(event: any, file: FileItem) {
@@ -119,6 +118,11 @@ export class UploadsComponent {
     this.contextMenu.menuData = { file: file };
     this.contextMenu.menu?.focusFirstItem('mouse');
     this.contextMenu.openMenu();
+  }
+
+  onGetFileItem(fileItem: FileItem) {
+    this.selection.clear();
+    this.dataSource.getFileItems(fileItem).subscribe();
   }
 
   editFileItem(action: EnFileAction, fileItem?: FileItem) {
