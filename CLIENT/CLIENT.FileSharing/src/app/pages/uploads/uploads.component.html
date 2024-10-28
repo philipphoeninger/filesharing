@@ -110,7 +110,7 @@
     <ng-container matColumnDef="lastChanged">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Last changed</th>
       <td mat-cell *matCellDef="let row">
-        {{ row.lastChanged.toLocaleString() }}
+        {{ row.lastChanged?.toLocaleString() }}
       </td>
     </ng-container>
 
