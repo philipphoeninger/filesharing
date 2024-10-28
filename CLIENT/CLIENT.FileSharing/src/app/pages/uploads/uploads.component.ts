@@ -6,14 +6,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTable } from '@angular/material/table';
-import { FileItem } from '../../file-items/shared/file-item.model';
+import { FileItem } from '../../file-items/shared/models/file-item.model';
 import { FileItemsDataSource } from '../../file-items/shared/mocks/fileItemDataSource';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MOCK_FILE_TYPE_GROUPS } from '../../file-items/shared/mocks/fileTypeGroups.mock.data';
-import { ITimeSpan } from '../../file-items/shared/time-span.interface';
+import { ITimeSpan } from '../../file-items/shared/models/time-span.interface';
 import { MOCK_TIME_SPANS } from '../../file-items/shared/mocks/timeSpans.mock.data';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -22,7 +22,7 @@ import { FileItemsApiService } from '../../file-items/shared/fileItems-api.servi
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { EditFileItemModalComponent } from '../../file-items/shared/dialogs/edit-file-item-modal/edit-file-item-modal.component';
-import { EnFileAction } from '../../file-items/shared/file-action-type.enum';
+import { EnFileAction } from '../../file-items/shared/models/file-action-type.enum';
 
 @Component({
   selector: 'app-uploads',

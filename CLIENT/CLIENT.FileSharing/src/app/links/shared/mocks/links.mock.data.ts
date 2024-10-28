@@ -1,4 +1,4 @@
-import { EnFileType } from '../../../file-items/shared/file-type.enum';
+import { EnFileType } from '../../../file-items/shared/models/file-type.enum';
 import { LinkModel } from '../link.model';
 
 export const MOCK_LINKS: LinkModel[] = [

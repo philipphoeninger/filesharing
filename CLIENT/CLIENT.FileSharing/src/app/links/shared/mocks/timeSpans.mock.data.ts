@@ -1,4 +1,4 @@
-import { ITimeSpan } from '../../../file-items/shared/time-span.interface';
+import { ITimeSpan } from '../../../file-items/shared/models/time-span.interface';
 import { EnTimeSpanFuture } from '../time-span.enum';
 
 export let MOCK_TIME_SPANS_FUTURE: ITimeSpan[] = [
