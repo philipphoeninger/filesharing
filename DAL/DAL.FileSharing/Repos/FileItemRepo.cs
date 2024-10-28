@@ -8,6 +8,11 @@ public class FileItemRepo : TemporalTableBaseRepo<FileItem>, IFileItemRepo
     #endregion
 
     #region methods
-    // TODO
+    public override FileItem? Find(int id)
+    {
+        var fileItem = Context.FileItems.Include(x => x.FileItems).First(x => x.Id == id);
+
+        return fileItem;
+    }
     #endregion
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { httpAppConfig } from '../../app.config';
-import { FileItem } from './file-item.model';
+import { FileItem } from './models/file-item.model';
 import { Observable, of as observableOf } from 'rxjs';
 import { MOCK_FILE_ITEMS } from './mocks/fileItems.mock.data';
 
@@ -9,9 +9,11 @@ import { MOCK_FILE_ITEMS } from './mocks/fileItems.mock.data';
 export class FileItemsApiService {
   constructor(private http: HttpClient) {}
 
-  getFileItems(): Observable<FileItem[]> {
-    // return this.http.get<FileItem[]>(`${httpAppConfig.apiEndpoint}/file-items`);
-    return observableOf(MOCK_FILE_ITEMS);
+  getFileItems(fileItem?: FileItem): Observable<FileItem[] | FileItem> {
+    return this.http.get<FileItem[]>(
+      `${httpAppConfig.apiEndpoint}/FileItems/${fileItem ? fileItem.id : ''}`,
+    );
+    // return observableOf(MOCK_FILE_ITEMS);
   }
 
   getFileItem(id: number): Observable<FileItem | null> {

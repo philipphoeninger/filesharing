@@ -1,8 +1,8 @@
-﻿namespace DAL.FileSharing.Repos.Interfaces;
+namespace DAL.FileSharing.Repos.Interfaces;
 
 public interface IBaseRepo<T> : IBaseViewRepo<T> where T : BaseEntity, new()
 {
-    T? Find(int? id); // Task<T> Find(int? id);
+    T? Find(int id); // Task<T> Find(int? id);
     T FindAsNoTracking(int id);
     T FindIgnoreQueryFilters(int id);
     void ExecuteParameterizedQuery(string sql, object[] sqlParametersObjects);

@@ -29,7 +29,7 @@ public abstract class BaseRepo<T> : BaseViewRepo<T>, IBaseRepo<T> where T : Base
     }
 
     // find
-    public virtual T? Find(int? id) => Table.Find(id);
+    public virtual T? Find(int id) => Table.Find(id);
 
     public virtual T FindAsNoTracking(int id) => Table.AsNoTrackingWithIdentityResolution().FirstOrDefault(x => x.Id == id);
 
