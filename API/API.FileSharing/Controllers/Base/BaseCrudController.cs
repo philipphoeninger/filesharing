@@ -54,7 +54,7 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     [SwaggerResponse(401, "Unauthorized access attempted")]
     public ActionResult<IEnumerable<string>> GetAll()
     {
-        return Ok(MainRepo.GetAllIgnoreQueryFilters());
+        return Ok(MainRepo.GetAll());
     }
 
     /// <summary>
