@@ -1,4 +1,4 @@
-﻿namespace MODELS.FileSharing.Entities;
+namespace MODELS.FileSharing.Entities;
 
 [Table("Links", Schema = "dbo")]
 [EntityTypeConfiguration(typeof(LinkConfiguration))]
@@ -26,12 +26,11 @@ public partial class Link : BaseEntity
     public DateTime LastChanged { get; set; }
 
     [Required]
-    [DisplayName("Owner")]
-    public string UserId { get; set; }
+    public string Owner { get; set; }
 
-    [ForeignKey(nameof(UserId))]
+    [ForeignKey(nameof(Owner))]
     [InverseProperty(nameof(User.Links))]
-    public virtual User UserNavigation { get; set; }
+    public virtual User OwnerNavigation { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -52,15 +51,15 @@ public partial class Link : BaseEntity
         Url = pUrl;
         FileItemId = pFileItem.Id;
         FileItemNavigation = pFileItem;
-        UserId = pUser.Id;
-        UserNavigation = pUser;
+        Owner = pUser.Id;
+        OwnerNavigation = pUser;
     }
     #endregion
 
     #region methods
     public override string ToString()
     {
-        return $"{Name} is a Link from {UserNavigation.UserName} with ID {Id}";
+        return $"{Name} is a Link from {OwnerNavigation.UserName} with ID {Id}";
     }
     #endregion
 }

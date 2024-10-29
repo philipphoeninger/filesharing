@@ -1,4 +1,4 @@
-﻿namespace MODELS.FileSharing.Entities;
+namespace MODELS.FileSharing.Entities;
 
 [Table("FileItems", Schema = "dbo")]
 [EntityTypeConfiguration(typeof(FileItemConfiguration))]
@@ -28,6 +28,13 @@ public partial class FileItem : BaseEntity
 
     [InverseProperty(nameof(Link.FileItemNavigation))]
     public virtual IEnumerable<Link> Links { get; set; } = new List<Link>();
+
+    [Required]
+    public string Owner { get; set; }
+
+    [ForeignKey(nameof(Owner))]
+    [InverseProperty(nameof(User.FileItems))]
+    public virtual User OwnerNavigation { get; set; }
 
     private bool? _isFolder;
     [DisplayName("Is Folder")]

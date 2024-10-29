@@ -1,4 +1,4 @@
-﻿namespace MODELS.FileSharing.Entities.Configuration;
+namespace MODELS.FileSharing.Entities.Configuration;
 
 public class LinkConfiguration : IEntityTypeConfiguration<Link>
 {
@@ -20,9 +20,9 @@ public class LinkConfiguration : IEntityTypeConfiguration<Link>
             .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_Links_FileItem");
 
-        builder.HasOne(l => l.UserNavigation)
+        builder.HasOne(l => l.OwnerNavigation)
            .WithMany(u => u.Links)
-           .HasForeignKey(l => l.UserId)
+           .HasForeignKey(l => l.Owner)
            .IsRequired()
            .OnDelete(DeleteBehavior.Cascade)
            .HasConstraintName("FK_Links_User");

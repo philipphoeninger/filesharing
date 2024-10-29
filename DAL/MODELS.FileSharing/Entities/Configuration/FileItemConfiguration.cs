@@ -24,7 +24,12 @@ public class FileItemConfiguration : IEntityTypeConfiguration<FileItem>
             .HasConstraintName("FK_FileItems_Parents");
         // TODO: parentId item isFolder=true constraint
 
-        //builder.HasIndex(f => new { f.Name, f.ParentId }, "IX_FileItems_Folder").IsUnique();
+        builder.HasOne(f => f.OwnerNavigation)
+           .WithMany(u => u.FileItems)
+           .HasForeignKey(f => f.Owner)
+           .IsRequired()
+           .OnDelete(DeleteBehavior.Restrict)
+           .HasConstraintName("FK_FileItems_User");
 
         // temporal
         builder.ToTable(b => b.IsTemporal(tb =>
