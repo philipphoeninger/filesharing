@@ -5,9 +5,15 @@
   justify-content: space-between;
   align-items: center;
 
-  .heading {
-    font-size: 1.75em;
-    margin-bottom: 0;
+  .navigation-container {
+    display: flex;
+    align-items: center;
+
+    .heading {
+      font-size: 1.75em;
+      margin-bottom: 0;
+      margin-right: 8px;
+    }
   }
 
   .action-container {

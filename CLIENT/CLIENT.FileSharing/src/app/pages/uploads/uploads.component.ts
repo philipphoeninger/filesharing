@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, DatePipe } from '@angular/common';
@@ -23,6 +23,7 @@ import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { EditFileItemModalComponent } from '../../file-items/shared/dialogs/edit-file-item-modal/edit-file-item-modal.component';
 import { EnFileAction } from '../../file-items/shared/models/file-action-type.enum';
+import { FileSharingStore } from '../../core/store/fileSharing.store';
 
 @Component({
   selector: 'app-uploads',
@@ -50,10 +51,12 @@ import { EnFileAction } from '../../file-items/shared/models/file-action-type.en
 export class UploadsComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   @ViewChild(MatTable) table!: MatTable<FileItem>;
   @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
 
   dataSource: FileItemsDataSource = new FileItemsDataSource(
+    inject(FileSharingStore),
     this.paginator,
     this.sort,
     inject(FileItemsApiService),
@@ -78,18 +81,28 @@ export class UploadsComponent {
   );
 
   constructor(
+    protected store: FileSharingStore,
     private fileItemApiService: FileItemsApiService,
     private dialog: MatDialog,
   ) {}
 
   ngAfterViewInit(): void {
     this.dataSource = new FileItemsDataSource(
+      this.store,
       this.paginator,
       this.sort,
       this.fileItemApiService,
     );
     this.table.dataSource = this.dataSource;
-    this.dataSource.getFileItems().subscribe();
+    let path = this.store.$getNavigationPath();
+    if (!path) {
+      this.dataSource.getFileItems().subscribe();
+      return;
+    }
+    let lastPath = path.reduce((prev, current) =>
+      prev.sortId > current.sortId ? prev : current,
+    );
+    this.dataSource.getFileItemById(lastPath.fileItemId).subscribe();
   }
 
   clearFilters() {
@@ -120,9 +133,26 @@ export class UploadsComponent {
     this.contextMenu.openMenu();
   }
 
-  onGetFileItem(fileItem: FileItem) {
+  onGetFileItem(fileItemId: number) {
+    let clickedFileItem =
+      this.dataSource.currentFileItem?.fileItems?.$values.find(
+        (x) => x.id === fileItemId,
+      );
+    if (!clickedFileItem) {
+      this.selection.clear();
+      this.store.updateNavigationPath(null);
+      this.dataSource.getFileItemById(fileItemId).subscribe();
+      return;
+    }
+    if (!clickedFileItem.isFolder) return;
     this.selection.clear();
-    this.dataSource.getFileItems(fileItem).subscribe();
+    this.dataSource.getFileItemById(clickedFileItem.id).subscribe();
+  }
+
+  onGetFileItems() {
+    this.selection.clear();
+    this.store.updateNavigationPath(null);
+    this.dataSource.getFileItems().subscribe();
   }
 
   editFileItem(action: EnFileAction, fileItem?: FileItem) {

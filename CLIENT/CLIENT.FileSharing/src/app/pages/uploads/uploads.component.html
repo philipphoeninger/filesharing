@@ -1,5 +1,26 @@
 <div class="header">
-  <h2 class="heading">My Uploads</h2>
+  <div class="navigation-container">
+    <h2 class="heading" (click)="onGetFileItems()">My Uploads</h2>
+    @for (
+      clickedItem of store.$getNavigationPath();
+      track clickedItem;
+      let index = $index
+    ) {
+      <a
+        mat-button
+        style="margin: 0; padding: 0; min-width: 1%"
+        (click)="onGetFileItem(clickedItem.fileItemId)"
+        ><span
+          >/
+          {{
+            store.$getNavigationPath()?.length === 4 && index === 0
+              ? "..."
+              : clickedItem.pathName
+          }}&nbsp;</span
+        ></a
+      >
+    }
+  </div>
   <div class="action-container">
     <button
       mat-mini-fab
@@ -129,7 +150,7 @@
       mat-row
       *matRowDef="let row; columns: displayedColumns"
       (contextmenu)="onContextMenuAction($event, row)"
-      (click)="onGetFileItem(row)"
+      (click)="onGetFileItem(row.id)"
     ></tr>
     <!-- TODO: matNoDataRow -->
   </table>
