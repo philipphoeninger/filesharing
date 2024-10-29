@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { jsonObject, jsonMember } from 'typedjson';
+import { jsonObject, jsonMember, jsonArrayMember } from 'typedjson';
 
 @jsonObject
 export class FileItem {
@@ -21,6 +21,9 @@ export class FileItem {
   @jsonMember
   fileSize?: number;
 
+  @jsonArrayMember(FileItem)
+  fileItems?: { $id: number; $values: FileItem[] };
+
   constructor(
     pId: number,
     pName: string,
@@ -28,6 +31,7 @@ export class FileItem {
     pLastChanged: Date,
     pIsFolder = false,
     pFileSize?: number,
+    fileItems?: { $id: number; $values: FileItem[] },
   ) {
     this.id = pId;
     this.name = pName;
@@ -35,5 +39,6 @@ export class FileItem {
     this.lastChanged = pLastChanged;
     this.isFolder = pIsFolder;
     this.fileSize = pFileSize;
+    this.fileItems = fileItems;
   }
 }
