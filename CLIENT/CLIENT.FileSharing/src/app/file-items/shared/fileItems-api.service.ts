@@ -2,24 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { httpAppConfig } from '../../app.config';
 import { FileItem } from './models/file-item.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { MOCK_FILE_ITEMS } from './mocks/fileItems.mock.data';
+import { Observable } from 'rxjs';
+import { FileItemResponseModel } from './models/fileItem-response.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FileItemsApiService {
   constructor(private http: HttpClient) {}
 
-  getFileItems(fileItem?: FileItem): Observable<FileItem[] | FileItem> {
-    return this.http.get<FileItem[]>(
-      `${httpAppConfig.apiEndpoint}/FileItems/${fileItem ? fileItem.id : ''}`,
+  getFileItemById(id: number): Observable<FileItemResponseModel> {
+    return this.http.get<FileItemResponseModel>(
+      `${httpAppConfig.apiEndpoint}/FileItems/withPath/${id}`,
     );
-    // return observableOf(MOCK_FILE_ITEMS);
   }
 
-  getFileItem(id: number): Observable<FileItem | null> {
-    // return this.http.get<FileItem>(`${httpAppConfig.apiEndpoint}/file-items/${id}`);
-    return observableOf(
-      MOCK_FILE_ITEMS.find((fileItem) => fileItem.id === id) || null,
-    );
+  getFileItems(): Observable<FileItem[]> {
+    return this.http.get<FileItem[]>(`${httpAppConfig.apiEndpoint}/FileItems`);
   }
 }
