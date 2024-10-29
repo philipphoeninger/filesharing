@@ -1,4 +1,4 @@
-namespace MODELS.FileSharing.Entities.Configuration;
+﻿namespace MODELS.FileSharing.Entities.Configuration;
 
 public class FileItemConfiguration : IEntityTypeConfiguration<FileItem>
 {
@@ -30,6 +30,8 @@ public class FileItemConfiguration : IEntityTypeConfiguration<FileItem>
            .IsRequired()
            .OnDelete(DeleteBehavior.Restrict)
            .HasConstraintName("FK_FileItems_User");
+
+        builder.HasIndex(f => new { f.Owner, f.Name, f.ParentId }, "IX_User_FileItems_Folder").IsUnique();
 
         // temporal
         builder.ToTable(b => b.IsTemporal(tb =>
