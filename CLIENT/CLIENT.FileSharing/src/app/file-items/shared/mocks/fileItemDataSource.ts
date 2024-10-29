@@ -6,9 +6,12 @@ import { Observable, merge, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { compare } from '../helper/compare.function';
 import { FileItemsApiService } from '../fileItems-api.service';
+import { FileSharingStore } from '../../../core/store/fileSharing.store';
 
 export class FileItemsDataSource extends DataSource<FileItem> {
   dataStream: BehaviorSubject<FileItem[]> = new BehaviorSubject<FileItem[]>([]);
+
+  currentFileItem: FileItem | null = null;
 
   set data(d: FileItem[]) {
     this.dataStream.next(d);
@@ -18,6 +21,7 @@ export class FileItemsDataSource extends DataSource<FileItem> {
   }
 
   constructor(
+    private store: FileSharingStore,
     private paginator: MatPaginator,
     private sort: MatSort,
     private fileItemsApiService: FileItemsApiService,
@@ -40,23 +44,42 @@ export class FileItemsDataSource extends DataSource<FileItem> {
 
     return merge(...dataMutations).pipe(
       map(() => {
-        return this.getPagedData(this.getSortedData([...this.data]));
+        if (!this.store.$getNavigationPath())
+          return this.getPagedData(this.getSortedData([...this.data]));
+        let fileItem = this.data[0];
+        if (!fileItem) return [];
+        return this.getPagedData(
+          this.getSortedData([...(fileItem.fileItems?.$values ?? [])]),
+        );
       }),
     );
   }
 
   disconnect(): void {}
 
-  public getFileItems(fileItem?: FileItem): Observable<FileItem[]> {
-    return this.fileItemsApiService.getFileItems(fileItem).pipe(
+  public refresh() {
+    this.fileItemsApiService.getFileItems().subscribe((result) => {
+      this.data = result instanceof Array ? [...result] : [result];
+    });
+  }
+
+  public getFileItemById(fileItemId: number) {
+    return this.fileItemsApiService.getFileItemById(fileItemId).pipe(
       map((result) => {
-        if (result instanceof Array) {
-          this.dataStream.next(result);
-          return this.getPagedData(this.getSortedData([...result]));
-        } else {
-          this.dataStream.next([result]);
-          return [result];
-        }
+        this.currentFileItem = result.fileItem;
+        this.data = [...(result.fileItem.fileItems?.$values || [])];
+        this.store.updateNavigationPath(result.directoryPath.$values);
+        return this.getPagedData(this.getSortedData(this.data));
+      }),
+    );
+  }
+
+  public getFileItems(): Observable<FileItem[]> {
+    return this.fileItemsApiService.getFileItems().pipe(
+      map((result) => {
+        this.currentFileItem = null;
+        this.data = result;
+        return this.getPagedData(this.getSortedData([...result]));
       }),
     );
   }
