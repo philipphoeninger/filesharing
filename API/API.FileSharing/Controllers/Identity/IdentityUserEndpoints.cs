@@ -1,4 +1,4 @@
-﻿namespace API.FileSharing.Controllers.Identity;
+namespace API.FileSharing.Controllers.Identity;
 
 public static class IdentityUserEndpoints
 {
@@ -25,7 +25,7 @@ public static class IdentityUserEndpoints
                 {
                     new Claim("UserID", user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(15),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(
                     signInKey,
                     SecurityAlgorithms.HmacSha256Signature
