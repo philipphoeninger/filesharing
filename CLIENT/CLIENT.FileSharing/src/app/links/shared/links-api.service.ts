@@ -10,12 +10,10 @@ export class LinksApiService {
   constructor(private http: HttpClient) {}
 
   getLinks(): Observable<LinkModel[]> {
-    // return this.http.get<LinkModel[]>(`${httpAppConfig.apiEndpoint}/links`);
-    return observableOf(MOCK_LINKS);
+    return this.http.get<LinkModel[]>(`${httpAppConfig.apiEndpoint}/links`);
   }
 
   getLink(id: number): Observable<LinkModel | null> {
-    // return this.http.get<LinkModel>(`${httpAppConfig.apiEndpoint}/links/${id}`);
-    return observableOf(MOCK_LINKS.find((link) => link.id === id) || null);
+    return this.http.get<LinkModel>(`${httpAppConfig.apiEndpoint}/links/${id}`);
   }
 }
