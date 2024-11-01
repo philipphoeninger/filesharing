@@ -14,13 +14,13 @@ public static class SampleData
         }
     };
 
-    public static List<FileItem> FileItems => new()
+    public static List<FileItem> FileItems(User user) => new()
     {
-        new() { Id = 1, Name = "First Folder", IsDeleted = false, ParentId = null, IsFolder = true },
-        new() { Id = 2, Name = "First File", IsDeleted = false, ParentId = 1, IsFolder = false },
-        new() { Id = 3, Name = "Second File", IsDeleted = false, ParentId = 1, IsFolder = false },
-        new() { Id = 4, Name = "Second Folder", IsDeleted = false, ParentId = null, IsFolder = true },
-        new() { Id = 5, Name = "Third Folder", IsDeleted = false, ParentId = 4, IsFolder = true },
+        new() { Id = 1, Name = "First Folder", IsDeleted = false, ParentId = null, IsFolder = true, Owner = user.Id },
+        new() { Id = 2, Name = "First File", IsDeleted = false, ParentId = 1, IsFolder = false, Owner = user.Id },
+        new() { Id = 3, Name = "Second File", IsDeleted = false, ParentId = 1, IsFolder = false, Owner = user.Id },
+        new() { Id = 4, Name = "Second Folder", IsDeleted = false, ParentId = null, IsFolder = true, Owner = user.Id },
+        new() { Id = 5, Name = "Third Folder", IsDeleted = false, ParentId = 4, IsFolder = true, Owner = user.Id },
     };
 
     public static List<Link> Links(List<FileItem> fileItems, User user) => new()

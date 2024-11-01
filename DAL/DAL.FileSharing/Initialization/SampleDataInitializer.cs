@@ -77,7 +77,7 @@ public static class SampleDataInitializer
         try
         {
             var succeeded = await ProcessUserInsert(dbContext, userManager, SampleData.Users);
-            ProcessInsert(dbContext, dbContext.FileItems, SampleData.FileItems);
+            ProcessInsert(dbContext, dbContext.FileItems, SampleData.FileItems(userManager.Users.First()));
             ProcessInsert(dbContext, dbContext.Links, SampleData.Links(dbContext.FileItems.ToList(), userManager.Users.First()));
         }
         catch (Exception ex)
