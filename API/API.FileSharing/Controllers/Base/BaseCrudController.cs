@@ -1,4 +1,4 @@
-﻿namespace API.FileSharing.Controllers.Base;
+namespace API.FileSharing.Controllers.Base;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -54,7 +54,9 @@ public abstract class BaseCrudController<TEntity, TController> : ControllerBase
     [SwaggerResponse(401, "Unauthorized access attempted")]
     public ActionResult<IEnumerable<string>> GetAll()
     {
-        return Ok(MainRepo.GetAll());
+        string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId == null) return Unauthorized();
+        return Ok(MainRepo.GetAll(userId));
     }
 
     /// <summary>

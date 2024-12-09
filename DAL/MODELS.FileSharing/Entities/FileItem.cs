@@ -54,7 +54,7 @@ public partial class FileItem : BaseEntity
         // TODO: generate Name
     }
 
-    public FileItem(string pName, bool? pIsFolder = false)
+    public FileItem(string pName, User pUser, bool? pIsFolder = false)
     {
         Name = pName;
         if (pIsFolder != null) _isFolder = pIsFolder;

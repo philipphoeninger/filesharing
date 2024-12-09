@@ -1,4 +1,4 @@
-﻿namespace DAL.FileSharing.Repos;
+namespace DAL.FileSharing.Repos;
 
 public class LinkRepo : TemporalTableBaseRepo<Link>, ILinkRepo
 {
@@ -9,5 +9,11 @@ public class LinkRepo : TemporalTableBaseRepo<Link>, ILinkRepo
 
     #region methods
     // TODO
+
+    public override IEnumerable<Link> GetAll(string userId)
+    {
+        var links = Context.Links.Where(x => x.Owner == userId);
+        return links;
+    }
     #endregion
 }

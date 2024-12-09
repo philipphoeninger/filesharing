@@ -1,9 +1,9 @@
-﻿namespace DAL.FileSharing.Repos.Interfaces;
+namespace DAL.FileSharing.Repos.Interfaces;
 
 public interface IBaseViewRepo<T> : IDisposable where T : class, new()
 {
     ApplicationDBContext Context { get; }
     IEnumerable<T> ExecuteSqlString(string sql);
-    IEnumerable<T> GetAll();
+    IEnumerable<T> GetAll(string userId);
     IEnumerable<T> GetAllIgnoreQueryFilters();
 }

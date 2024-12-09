@@ -23,7 +23,7 @@ public static class IdentityUserEndpoints
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("UserID", user.Id.ToString())
+                    new(ClaimTypes.NameIdentifier, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(
