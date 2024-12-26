@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
       .login(loginCommand)
       .pipe(
         map((response: any) => {
-          debugger;
           // TODO: check if login succeeded (check status code)
           localStorage.setItem('fileshare-token', response.token);
           this.router.navigateByUrl('/home');
