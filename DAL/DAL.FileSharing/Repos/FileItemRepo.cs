@@ -1,4 +1,4 @@
-namespace DAL.FileSharing.Repos;
+﻿namespace DAL.FileSharing.Repos;
 
 public class FileItemRepo : TemporalTableBaseRepo<FileItem>, IFileItemRepo
 {
@@ -29,6 +29,12 @@ public class FileItemRepo : TemporalTableBaseRepo<FileItem>, IFileItemRepo
             if (count >= 3 || _fileItem.ParentNavigation?.ParentId == null) return;
             LoadParents(_fileItem.ParentNavigation);
         }
+    }
+
+    public override IEnumerable<FileItem> GetAll(string userId)
+    {
+        var fileItems = Context.FileItems.Where(x => x.Owner == userId && x.ParentId == null);
+        return fileItems;
     }
     #endregion
 }

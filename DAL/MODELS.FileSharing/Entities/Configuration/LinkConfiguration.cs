@@ -5,7 +5,7 @@ public class LinkConfiguration : IEntityTypeConfiguration<Link>
     public void Configure(EntityTypeBuilder<Link> builder)
     {
         // query filters
-        builder.HasQueryFilter(f => !f.FileItemNavigation.IsDeleted);
+        builder.HasQueryFilter(l => !l.FileItemNavigation.IsDeleted);
 
         // properties
         builder.Property(l => l.CreatedAt).HasDefaultValueSql("GetDate()");
